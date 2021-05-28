@@ -18,28 +18,11 @@ import ReactDOM from 'react-dom';
 import Menu from './components/menu';
 import Home from './components/home';
 
+const App = () => (
+    <div className="App">
+        <Menu />
+        <Home />
+    </div>
+)
 
-/**
- * We can start our initial App here in the main.js file
- */
-class App extends React.Component {
-
-    /**
-     * Renders the default app in the window, we have assigned this to an element called root.
-     * 
-     * @returns JSX
-     * @memberof App
-    */
-    render() {
-        return (
-            <div className="App">
-                <Menu />
-                <Home />
-            </div>
-        );
-    }
-
-}
-
-// Render this out
 ReactDOM.render(<App />, document.getElementById('root'));

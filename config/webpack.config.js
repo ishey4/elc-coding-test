@@ -1,10 +1,6 @@
 "use strict";
-/**
- * Version of the Webpack Config used for Development.
- * 
- * This version will include SourceMaps, Uncompressed JS and HMR.
- */
-
+const path = require('path');
+console.log("path!!!!", path.resolve(__dirname, '../app/services/'))
 module.exports = {
     
     output: {
@@ -12,7 +8,11 @@ module.exports = {
     },    
 
     devtool: 'source-map',
-    
+    resolve: {
+        alias: {
+            services: path.resolve(__dirname, '../app/services/'),
+        },
+    },
     module: {
         rules: [
             {

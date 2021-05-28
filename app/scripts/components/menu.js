@@ -1,54 +1,13 @@
-/**
- * This file will hold the Menu that lives at the top of the Page, this is all rendered using a React Component...
- * 
- */
-import React from 'react';
+import React, { useState } from 'react';
+import { SearchComponent } from './search/search';
 
-class Menu extends React.Component {
-
-    /**
-     * Main constructor for the Menu Class
-     * @memberof Menu
-     */
-    constructor() {
-        super();
-        this.state = {
-            showingSearch: false
-        };
-    }
-
-    /**
-     * Shows or hides the search container
-     * @memberof Menu
-     * @param e [Object] - the event from a click handler
-     */
-    showSearchContainer(e) {
+const Menu = ()=> {
+    const [isSearchVisible, setIsSearchVisible] = useState(false);
+    
+    const toggleSearchContainer = (e) => {
         e.preventDefault();
-        this.setState({
-            showingSearch: !this.state.showingSearch
-        });
+        setIsSearchVisible(!isSearchVisible)
     }
-
-    /**
-     * Calls upon search change
-     * @memberof Menu
-     * @param e [Object] - the event from a text change handler
-     */
-    onSearch(e) {
-        
-        // Start Here
-        // ...
-        
-
-    }
-
-    /**
-     * Renders the default app in the window, we have assigned this to an element called root.
-     * 
-     * @returns JSX
-     * @memberof App
-    */
-    render() {
         return (
             <header className="menu">
                 <div className="menu-container">
@@ -63,21 +22,19 @@ class Menu extends React.Component {
                             <a href="#" className="nav-item">STORES</a>
                             <a href="#" className="nav-item">INSPIRATION</a>
 
-                            <a href="#" onClick={(e) => this.showSearchContainer(e)}>
+                            <a href="#" onClick={toggleSearchContainer}>
                                 <i className="material-icons search">search</i>
                             </a>
                         </nav>
                     </div>
                 </div>
-                <div className={(this.state.showingSearch ? "showing " : "") + "search-container"}>
-                    <input type="text" onChange={(e) => this.onSearch(e)} />
-                    <a href="#" onClick={(e) => this.showSearchContainer(e)}>
-                        <i className="material-icons close">close</i>
-                    </a>
-                </div>
+                <SearchComponent
+                    visible={isSearchVisible}
+                    toggleSearchContainer={toggleSearchContainer}
+                />
             </header>
         );
-    }
+
 
 
 }
