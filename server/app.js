@@ -17,7 +17,9 @@ const filterDeep = (searchTerm) => (value) => {
 http.createServer(function (req, res) {
   
     const [_match, query] = req.url.match('[?|&]query=([^&]*)') || [];
-    const filteredResults = data.filter(filterDeep(query));
+    const filteredResults = data
+        .filter(({ isActive }) => isActive)
+        .filter(filterDeep(query));
     res.setHeader('Access-Control-Allow-Origin','http://localhost:3030')
     res.write(JSON.stringify(filteredResults));
     res.end(); 

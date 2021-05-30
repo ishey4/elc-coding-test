@@ -7,19 +7,29 @@ import { SearchError } from "./searchError";
 import { SearchResults } from "./searchResults";
 
 export const SearchComponent = ({ visible, toggleSearchContainer }) => {
-  const [queryInput, setQueryInput] = useState("");
-  const { data, loading, error, setQuery } = useRunSearch();
+  const [searchTerm, setSearchTerm] = useState("");
+  const { data, loading, error, searchForProduct } = useRunSearch();
+
+  const canSearch = searchTerm.length > 2;
 
   useEffect(() => {
-    setQuery(queryInput);
-  }, [queryInput]);
+    searchForProduct(searchTerm);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (!visible) {
+      setSearchTerm("");
+    }
+  },[visible])
 
   return !visible ? null : (
     <div className={"search-container"}>
       <input
         type="text"
+        placeholder="Search (3 Chr min)"
+        value={searchTerm}
         onChange={(e) => {
-          setQueryInput(e.target.value);
+          setSearchTerm(e.target.value);
         }}
       />
 
@@ -28,9 +38,9 @@ export const SearchComponent = ({ visible, toggleSearchContainer }) => {
       </a>
 
       <div className="search-results">
-        {loading ? <SearchLoading /> : null}
-        {error ? <SearchError error={error} /> : null}
-        {data ? <SearchResults results={data} /> : null}
+        {canSearch && loading ? <SearchLoading /> : null}
+        {canSearch && error ? <SearchError error={error} /> : null}
+        {canSearch && data ? <SearchResults results={data} /> : null}
       </div>
     </div>
   );

@@ -276,7 +276,7 @@ gulp.task('watch', ['images', 'templates', 'scripts', 'sass', 'server'], functio
 		port: config.dev_port || 3030
 	});
 	gulp.watch( './app/**/*.scss', ['sass'] );
-	gulp.watch(['./app/scripts/**/*.jsx', './app/scripts/**/*.js'], ['scripts'] );
+	gulp.watch(['./app/scripts/**/*.tsx', './app/scripts/**/*.ts'], ['scripts'] );
 	gulp.watch(['./app/**/*.mustache', './app/**/*.json', './app/**/*.html'], ['mustache']);
 });
 

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 
-import { search } from '../../../../services/getSearchData'
+import { productSearch } from "../../../../services/productSearch";
 
 import { SearchResult } from '../types';
 
 export const useRunSearch = (debounceTime=750) => {
-    const [query, localSetQuery] = useState(null)
+    const [query, setQuery] = useState(null)
     const [debounceTimer, setDebounceTimer] = useState(null)
 
     const [loading, setLoading] = useState(false)
@@ -18,24 +18,23 @@ export const useRunSearch = (debounceTime=750) => {
         setError(null)
      }
 
-    const setQuery = (value) => {
-        if (value) {
+    const searchForProduct = (value) => {
+        if (value && value.length > 2) {
             setRequestLoading();
             clearTimeout(debounceTimer)
-            setDebounceTimer(setInterval(() => localSetQuery(value), debounceTime))
+            setDebounceTimer(setInterval(() => setQuery(value), debounceTime))
         }
     }
 
     useEffect(() => { 
-        if (query) {
-            search(query)
+        if (query && query.length > 2) {
+            productSearch(query)
                 .then(({data})=>setData(data))
                 .catch(setError)
                 .finally(() => setLoading(false))
-        }
+        } 
 
     }, [query])
 
-    return { data, loading, error, setQuery }
-
+    return { data, loading, error, searchForProduct };
 }
