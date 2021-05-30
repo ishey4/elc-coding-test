@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
+
 import { SearchComponent } from './search/search';
 
-const Menu = ()=> {
+export const Menu = ()=> {
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     
     const toggleSearchContainer = (e) => {
@@ -38,6 +40,3 @@ const Menu = ()=> {
 
 
 }
-
-// Export out the React Component
-module.exports = Menu;

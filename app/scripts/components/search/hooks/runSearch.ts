@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react"
 
-import { search } from 'services/getSearchData'
+import { search } from '../../../../services/getSearchData'
+
+import { SearchResult } from '../types';
 
 export const useRunSearch = (debounceTime=750) => {
     const [query, localSetQuery] = useState(null)
     const [debounceTimer, setDebounceTimer] = useState(null)
 
     const [loading, setLoading] = useState(false)
-    const [data, setData] = useState(null)
+    const [data, setData] = useState<SearchResult[]>(null) 
     const [error, setError] = useState(null)
 
     const setRequestLoading = () => {

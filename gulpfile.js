@@ -139,10 +139,10 @@ gulp.task('server', function() {
 gulp.task('scripts', function () {
 
 	// Log this change
-	infoLog('Scripts ran on main.js');
+	infoLog('Scripts ran on main.ts');
 
 	// Return the task
-	return gulp.src('./app/scripts/main.js')
+	return gulp.src('./app/scripts/main.tsx')
 		.pipe(webpack(
 			webpack_config_dev
 		))
